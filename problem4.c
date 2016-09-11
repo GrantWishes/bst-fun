@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define MAX_WORD_LENGTH 65
 
@@ -9,16 +10,45 @@ struct Node {
 	struct Node* right;
 };
 
+
 struct Node* buildTreeFromFile() {
 	FILE *file = fopen("problem4.input1","r");
 	if (file == NULL) {
 		printf("Input file not found.\n");
 		return NULL;
 	}
-	char word[MAX_WORD_LENGTH] ; 
+	char word[MAX_WORD_LENGTH] ;
+
+	bool firstRun = true;
+	struct Node root; 
 	while(fscanf(file, "%s", word) == 1) {
-		// use these num to buld a tree
+		// use these num to build a tree
+		struct Node newNode;
+		strcpy(newNode.data,word);
+		//printf("Current letter: %s\n",newNode.data);
+		struct Node current = root;
+		struct Node parent = root;
+
+		if(firstRun == true) {
+			root = newNode;
+			firstRun = false;
+		}
+		
+		int compare;
+
+//		while(current != 
+//		compare = strcmp(
+			
+	
 	}
+
+	if(root.left != NULL){
+		printf("Dammit");
+	}
+
+	printf("%s\n",root.data);
+
+
 	fclose(file);
 	return NULL; // return tree root node here.
 }
