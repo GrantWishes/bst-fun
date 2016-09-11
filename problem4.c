@@ -24,22 +24,26 @@ struct Node* buildTreeFromFile() {
 	while(fscanf(file, "%s", word) == 1) {
 		// use these num to build a tree
 		struct Node* newNode;
+		struct Node* current;
+		struct Node* parent;
 		newNode = malloc(sizeof(struct Node));
-		
+		current = malloc(sizeof(struct Node));
+		parent  = malloc(sizeof(struct Node));
+
+		strcpy(newNode->data, word);
 
 
-
+		if(root == NULL) {
+			root = newNode; 
+		}
 	}		
 
 			
-	
-
-
 	printf("%s\n",root->data);
 
 
 	fclose(file);
-	return root; // return tree root node here.
+	return NULL; // return tree root node here.
 }
 
 
