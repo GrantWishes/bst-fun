@@ -36,14 +36,44 @@ struct Node* buildTreeFromFile() {
 		if(root == NULL) {
 			root = newNode; 
 		}
+
+		int compare;
+
+		int tempCounter = 0;
+		current = root;
+		parent = root;
+		while(current != NULL) {
+			parent = current;
+			printf("newNode data is %s and current data is %s\n",newNode->data, current->data);
+			compare = strcmp(newNode->data,current->data);
+			if(compare == 0) {
+				printf("lolwat\n");
+				break;
+			}
+			if(compare < 0) {
+				printf("%s is less than %s!\n", newNode->data, current->data);
+				current = current->left;
+			}
+			else if(compare > 0) {
+				printf("%s is greater than %s!\n", newNode->data, current->data);
+				current = current->right;
+			}
+		}
+		compare = strcmp(newNode->data, parent->data);
+		if(compare < 0) {
+			parent->left = newNode;
+		}
+		else {
+			parent->right = newNode;
+		}
 	}		
 
 			
-	printf("%s\n",root->data);
+	printf("%s\n",root->left->data);
 
 
 	fclose(file);
-	return NULL; // return tree root node here.
+	return root; // return tree root node here.
 }
 
 
