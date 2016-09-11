@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 
@@ -10,6 +11,7 @@ struct Node {
 	struct Node* right;
 };
 
+struct Node* root; 
 
 struct Node* buildTreeFromFile() {
 	FILE *file = fopen("problem4.input1","r");
@@ -19,38 +21,25 @@ struct Node* buildTreeFromFile() {
 	}
 	char word[MAX_WORD_LENGTH] ;
 
-	bool firstRun = true;
-	struct Node root; 
 	while(fscanf(file, "%s", word) == 1) {
 		// use these num to build a tree
-		struct Node newNode;
-		strcpy(newNode.data,word);
-		//printf("Current letter: %s\n",newNode.data);
-		struct Node current = root;
-		struct Node parent = root;
-
-		if(firstRun == true) {
-			root = newNode;
-			firstRun = false;
-		}
+		struct Node* newNode;
+		newNode = malloc(sizeof(struct Node));
 		
-		int compare;
 
-//		while(current != 
-//		compare = strcmp(
+
+
+	}		
+
 			
 	
-	}
 
-	if(root.left != NULL){
-		printf("Dammit");
-	}
 
-	printf("%s\n",root.data);
+	printf("%s\n",root->data);
 
 
 	fclose(file);
-	return NULL; // return tree root node here.
+	return root; // return tree root node here.
 }
 
 
