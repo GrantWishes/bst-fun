@@ -89,15 +89,39 @@ void print_preorder(struct Node* tree) {
 
 void print_inorder(struct Node* tree) {
 	// Implement this function.
+	if(tree != NULL) {
+		print_inorder(tree->left);
+		printf("%s ", tree->data);
+		print_inorder(tree->right);
+	}
 }
 
 void print_postorder(struct Node* tree) {
-
+	if(tree != NULL) {
+		print_postorder(tree->left);
+		print_postorder(tree->right);
+		printf("%s ", tree->data);
+	}
 }	// Implement this function.
 
 bool found_in_tree(char *word_to_search, struct Node* tree) {
 		// Implement this function.
-	return true;
+	struct Node* current = tree;
+	int compare;
+
+	while(current != NULL) {
+		compare = strcmp(word_to_search,current->data);
+		if(compare == 0) {
+			return true;
+		}
+		if(compare < 0) {
+			current = current->left;
+		}
+		else if(compare > 0) {
+			current = current->right;
+		}
+	}	
+	return false;
 }
 
 void use_tree_searching(struct Node* tree) {
