@@ -27,22 +27,31 @@ struct Node* buildTreeFromFile() {
 		struct Node* current;
 		struct Node* parent;
 		newNode = malloc(sizeof(struct Node));
-		current = malloc(sizeof(struct Node));
-		parent  = malloc(sizeof(struct Node));
 
 		strcpy(newNode->data, word);
 
-
 		if(root == NULL) {
-			root = newNode; 
+			root = newNode;
+			printf("Root created! New node is %s\n",root->data); 
+			continue;
 		}
 
 		int compare;
 
-		int tempCounter = 0;
 		current = root;
 		parent = root;
-		while(current != NULL) {
+	
+
+		// TO DO
+		// FIGURE OUT A CONDITION THAT DOES TWO THINGS
+		// 1. EXITS OUT OF THE WHILE LOOP ONCE IT REACHES A LEAF ON THE TREE
+		// 2. MAKE SURE IT ONLY DOES THAT (RIGHT NOW, THE CURRENT CONDITION OVERWRITES OTHER VALUES
+
+
+
+
+	
+		while((parent->left != NULL && parent->right != NULL)) {
 			parent = current;
 			printf("newNode data is %s and current data is %s\n",newNode->data, current->data);
 			compare = strcmp(newNode->data,current->data);
@@ -62,14 +71,18 @@ struct Node* buildTreeFromFile() {
 		compare = strcmp(newNode->data, parent->data);
 		if(compare < 0) {
 			parent->left = newNode;
+			printf("ADDED, new node is %s\n",parent->left->data);
 		}
 		else {
 			parent->right = newNode;
+			printf("ADDED TOO, new node is %s\n",parent->right->data);
 		}
+
+		printf("Debug: Root: %s  RLeft: %s RRight: %s\n",root->data,root->left->data,root->right->data);
 	}		
 
 			
-	printf("%s\n",root->left->data);
+	printf("This should be A: %s and this should be F: %s\n",root->left->data, root->right->data);
 
 
 	fclose(file);
