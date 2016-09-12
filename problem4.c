@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define MAX_WORD_LENGTH 65
 
@@ -9,37 +11,117 @@ struct Node {
 	struct Node* right;
 };
 
+struct Node* root; 
+
 struct Node* buildTreeFromFile() {
 	FILE *file = fopen("problem4.input1","r");
 	if (file == NULL) {
 		printf("Input file not found.\n");
 		return NULL;
 	}
-	char word[MAX_WORD_LENGTH] ; 
+	char word[MAX_WORD_LENGTH] ;
+
 	while(fscanf(file, "%s", word) == 1) {
-		// use these num to buld a tree
-	}
+		// use these num to build a tree
+		struct Node* newNode;
+		struct Node* current;
+		struct Node* parent;
+		newNode = malloc(sizeof(struct Node));
+
+		strcpy(newNode->data, word);
+		current = NULL;
+		parent  = NULL;
+
+		if(root == NULL) {
+			root = newNode;
+			continue;
+		}
+
+		int compare;
+
+		current = root;
+		parent = root;
+	
+		while(current != NULL) {
+			parent = current;
+			compare = strcmp(newNode->data,current->data);
+			if(compare == 0) {
+				break;
+			}
+			if(compare < 0) {
+				current = current->left;
+			}
+			else if(compare > 0) {
+				current = current->right;
+			}
+		}
+		compare = strcmp(newNode->data, parent->data);
+		if(compare < 0) {
+			parent->left = newNode;
+		}
+		else {
+			parent->right = newNode;
+		}
+
+	}		
+
 	fclose(file);
-	return NULL; // return tree root node here.
+	return root; // return tree root node here.
 }
 
 
 
 void print_preorder(struct Node* tree) {
 	// Implement this function.
+	printf("%s ",tree->data);
+		
+	if(tree->left != NULL) {
+		print_preorder(tree->left);
+	}
+
+	if(tree->right != NULL) {
+		print_preorder(tree->right);
+	}
 }
+
+
+
 
 void print_inorder(struct Node* tree) {
 	// Implement this function.
+	if(tree != NULL) {
+		print_inorder(tree->left);
+		printf("%s ", tree->data);
+		print_inorder(tree->right);
+	}
 }
 
 void print_postorder(struct Node* tree) {
-
+	if(tree != NULL) {
+		print_postorder(tree->left);
+		print_postorder(tree->right);
+		printf("%s ", tree->data);
+	}
 }	// Implement this function.
 
 bool found_in_tree(char *word_to_search, struct Node* tree) {
 		// Implement this function.
-	return true;
+	struct Node* current = tree;
+	int compare;
+
+	while(current != NULL) {
+		compare = strcmp(word_to_search,current->data);
+		if(compare == 0) {
+			return true;
+		}
+		if(compare < 0) {
+			current = current->left;
+		}
+		else if(compare > 0) {
+			current = current->right;
+		}
+	}	
+	return false;
 }
 
 void use_tree_searching(struct Node* tree) {
